@@ -1,6 +1,5 @@
 {
   "name": "polaris-monorepo-cli",
-  "private": true,
   "workspaces": [
     "packages/*"
   ],
