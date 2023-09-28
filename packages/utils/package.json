@@ -1,0 +1,19 @@
+{
+  "name": "@polaris-monorepo-cli/utils",
+  "version": "1.0.0",
+  "description": "polaris-monorepo-cli/utils",
+  "author": "caishiqi.csq <caishiqi.csq@alibaba-inc.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/utils.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/utils.test.js"
+  }
+}
