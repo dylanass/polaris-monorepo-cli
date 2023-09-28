@@ -1,6 +1,6 @@
 {
   "name": "@polaris-monorepo-cli/core",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "polaris-monorepo-cli/core",
   "author": "caishiqi.csq <caishiqi.csq@alibaba-inc.com>",
   "homepage": "",
@@ -17,7 +17,7 @@
     "test": "node ./__tests__/core.test.js"
   },
   "dependencies": {
-    "@polaris-monorepo-cli/utils": "^1.0.4"
+    "@polaris-monorepo-cli/utils": "^1.0.5"
   },
   "gitHead": "64eb15c8bfe4d0d7a1d81a892c1e838c318cb17d"
 }
