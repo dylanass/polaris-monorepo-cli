@@ -1,6 +1,6 @@
 {
   "name": "@polaris-monorepo-cli/utils",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "description": "polaris-monorepo-cli/utils",
   "author": "caishiqi.csq <caishiqi.csq@alibaba-inc.com>",
   "homepage": "",
@@ -15,5 +15,9 @@
   ],
   "scripts": {
     "test": "node ./__tests__/utils.test.js"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "899e143e8c59e7a430935eca864e58210c31ecfe"
 }
