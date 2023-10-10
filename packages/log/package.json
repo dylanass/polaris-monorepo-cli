@@ -1,6 +1,6 @@
 {
   "name": "@polaris-monorepo-cli/log",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "npmlog package",
   "author": "caishiqi.csq <caishiqi.csq@alibaba-inc.com>",
   "homepage": "https://github.com/dylanass/polaris-monorepo-cli#readme",
