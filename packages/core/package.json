@@ -1,6 +1,6 @@
 {
   "name": "@polaris-monorepo-cli/core",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "polaris-monorepo-cli/core",
   "author": "caishiqi.csq <caishiqi.csq@alibaba-inc.com>",
   "homepage": "",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@polaris-monorepo-cli/log": "file:../log",
-    "@polaris-monorepo-cli/utils": "^1.1.0",
+    "@polaris-monorepo-cli/utils": "^1.1.1",
     "colors": "^1.4.0",
     "dotenv": "^16.3.1",
     "esm": "^3.2.25",
