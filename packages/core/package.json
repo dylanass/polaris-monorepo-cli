@@ -20,7 +20,17 @@
     "test": "node ./__tests__/core.test.js"
   },
   "dependencies": {
-    "@polaris-monorepo-cli/utils": "^1.0.8"
+    "@polaris-monorepo-cli/log": "file:../log",
+    "@polaris-monorepo-cli/utils": "^1.0.8",
+    "colors": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "esm": "^3.2.25",
+    "import-local": "^3.1.0",
+    "minimist": "^1.2.8",
+    "path-exists": "^5.0.0",
+    "root-check": "^2.0.0",
+    "semver": "^7.5.4",
+    "user-home": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
