@@ -8,7 +8,10 @@ var getSemverVersions = require('./getSemverVersions');
 
 var getNpmSemverVersion = require('./getNpmSemverVersion');
 
+var isObject = require('./isObject');
+
 module.exports = {
+  isObject: isObject,
   getNpmInfo: getNpmInfo,
   getNpmVersions: getNpmVersions,
   getSemverVersions: getSemverVersions,

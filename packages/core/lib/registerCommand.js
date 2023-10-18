@@ -1,6 +1,7 @@
 /** 命令注册 */
 const commander = require('commander')
 const log = require('@polaris-monorepo-cli/log')
+const exec = require('./exec')
 
 const pkg = require('../package.json')
 
@@ -13,6 +14,18 @@ function registerCommand () {
     .usage('<command> [option]')
     .option('-d,--debug', '调试模式', false)
     .option('-h, --help', 'display help for command')
+
+  program
+    .command('init [projectName]')
+    .option('-tg, --targetPath <targetPath>', '本地调试文件路径', '')
+    .option('-f , --force', '是否强制安装')
+    .action((projectName, options, command) => {
+      log.verbose('polaris init projectName -->', projectName)
+      log.verbose('polaris init options -->', options)
+      log.verbose('polaris init command -->', command.name())
+      process.env.CLI_TARGET_PAtH = options.targetPath
+      exec(projectName, options, command)
+    })
 
   /** debug */
   program.on('option:debug', function () {
@@ -31,13 +44,9 @@ function registerCommand () {
     if (availableCommands.length > 0) {
       log.info('可用命令:', availableCommands.join(','))
     }
-  })
-
-  /** output help document */
-  if (program.args && program.args.length < 1) {
     program.outputHelp()
     console.log();
-  }
+  })
 
   program.parse(process.argv)
 }
