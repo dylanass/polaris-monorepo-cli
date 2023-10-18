@@ -25,11 +25,9 @@
     "colors": "^1.4.0",
     "commander": "^11.0.0",
     "dotenv": "^16.3.1",
-    "esm": "^3.2.25",
     "import-local": "^3.1.0",
-    "minimist": "^1.2.8",
     "path-exists": "^3.0.0",
-    "root-check": "^2.0.0",
+    "root-check": "^1.0.0",
     "semver": "^7.5.4",
     "user-home": "^3.0.0"
   },

@@ -25,8 +25,8 @@ function registerCommand () {
   })
 
   /** unknown command */
-  program.on('command:*', function (obj) {
-    log.error('未知命令:', obj[0])
+  program.on('command:*', function ([unknownCmd]) {
+    log.error('未知命令:', unknownCmd)
     const availableCommands = program.commands.map(cmd => cmd.name())
     if (availableCommands.length > 0) {
       log.info('可用命令:', availableCommands.join(','))

@@ -1,3 +1,12 @@
 'use strict';
+const prepare = require('./prepare')
+const registerCommand = require('./registerCommand')
 
-module.exports = require('./core')
+
+async function core () {
+  await prepare()
+  registerCommand()
+}
+
+
+module.exports = core
