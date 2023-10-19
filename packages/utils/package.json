@@ -19,7 +19,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "d695243762d97cd15fa582d7847b2254d6fbc029",
+  "gitHead": "7af099f3949d9b460b9684c3c44368ef9c0127fb",
   "dependencies": {
     "axios": "^1.5.1",
     "semver": "^7.5.4",

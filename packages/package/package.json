@@ -25,10 +25,14 @@
   },
   "dependencies": {
     "@polaris-monorepo-cli/init": "file:../init",
-    "@polaris-monorepo-cli/log": "file:../log",
+    "@polaris-monorepo-cli/log": "^1.1.3",
     "fs-extra": "^9.0.1",
     "npminstall": "^4.10.0",
     "path-exists": "^3.0.0",
     "pkg-dir": "^5.0.0"
+  },
+  "gitHead": "7af099f3949d9b460b9684c3c44368ef9c0127fb",
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -25,5 +25,9 @@
   },
   "bugs": {
     "url": "https://github.com/dylanass/polaris-monorepo-cli/issues"
+  },
+  "gitHead": "7af099f3949d9b460b9684c3c44368ef9c0127fb",
+  "publishConfig": {
+    "access": "public"
   }
 }
