@@ -32,23 +32,23 @@ class Package {
       fse.mkdirpSync(this.storeDir);
     }
     if (this.packageVersion === 'latest') {
-      // this.packageVersion = await getNpmLatestVersion(this.packageName);
-      // log.verbose('latest package version --> ', this.packageVersion)
+      this.packageVersion = await getNpmLatestVersion(this.packageName);
+      log.verbose('latest init package version --> ', this.packageVersion)
     }
   }
 
   /** install npm package */
   async install () {
     await this.prepare()
-    // npmInstall({
-    //   root: this.root,
-    //   storeDir,
-    //   registry: ,getNpmLatestVersion(),
-    //   pkgs: [{
-    //     name: this.packageName,
-    //     version: this.packageVersion,
-    //   }],
-    // })
+    npmInstall({
+      root: this.root,
+      storeDir: this.storeDir,
+      registry: getDefaultRegistry(),
+      pkgs: [{
+        name: this.packageName,
+        version: this.packageVersion,
+      }],
+    })
   }
 
   /** 获取package入口文件目录 */

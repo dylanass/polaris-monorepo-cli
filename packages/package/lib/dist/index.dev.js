@@ -59,11 +59,19 @@ function () {
                 fse.mkdirpSync(this.storeDir);
               }
 
-              if (this.packageVersion === 'latest') {// this.packageVersion = await getNpmLatestVersion(this.packageName);
-                // log.verbose('latest package version --> ', this.packageVersion)
+              if (!(this.packageVersion === 'latest')) {
+                _context.next = 6;
+                break;
               }
 
-            case 2:
+              _context.next = 4;
+              return regeneratorRuntime.awrap(getNpmLatestVersion(this.packageName));
+
+            case 4:
+              this.packageVersion = _context.sent;
+              log.verbose('latest init package version --> ', this.packageVersion);
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -83,6 +91,17 @@ function () {
               return regeneratorRuntime.awrap(this.prepare());
 
             case 2:
+              npmInstall({
+                root: this.root,
+                storeDir: this.storeDir,
+                registry: getDefaultRegistry(),
+                pkgs: [{
+                  name: this.packageName,
+                  version: this.packageVersion
+                }]
+              });
+
+            case 3:
             case "end":
               return _context2.stop();
           }

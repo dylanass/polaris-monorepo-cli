@@ -7,8 +7,8 @@
  * 淘宝源：https://registry.npmmirror.com
  */
 function getDefaultRegistry() {
-  var isOriginal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  return isOriginal ? 'https ://registry.npmjs.org' : 'https://registry.npmmirror.com';
+  var isOriginal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  return isOriginal ? 'https://registry.npmjs.org' : 'https://registry.npmmirror.com';
 }
 
 module.exports = getDefaultRegistry;
