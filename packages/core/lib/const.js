@@ -6,8 +6,11 @@ const PKG_CONFIG_WITH_COMMAND = {
   init: '@polaris-monorepo-cli/init'
 }
 
+const CACHE_DIR = 'dependencies'
+
 module.exports = {
   LOWEST_NODE_VERSION,
   DEFAULT_CLI_HOME,
-  PKG_CONFIG_WITH_COMMAND
+  PKG_CONFIG_WITH_COMMAND,
+  CACHE_DIR
 }

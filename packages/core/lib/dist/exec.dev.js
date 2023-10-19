@@ -6,26 +6,43 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var path = require('path');
+
+var log = require('@polaris-monorepo-cli/log');
+
 var Package = require('@polaris-monorepo-cli/package');
 
 var _require = require('./const'),
-    PKG_CONFIG_WITH_COMMAND = _require.PKG_CONFIG_WITH_COMMAND;
+    PKG_CONFIG_WITH_COMMAND = _require.PKG_CONFIG_WITH_COMMAND,
+    CACHE_DIR = _require.CACHE_DIR;
 
 function exec() {
   var targetPath = process.env.CLI_TARGET_PAtH;
+  var cliHomePath = process.env.CLI_HOME_PATH; //  /Users/mac/.polaris-cli
+
+  var root = targetPath || path.resolve(cliHomePath, CACHE_DIR);
   var pkg = new Package(_objectSpread({
-    targetPath: targetPath
-  }, getPkgInfo.apply(null, arguments)));
+    root: root
+  }, getPkgNameAndVersion.apply(null, arguments)));
+  var pkgMainPath = pkg.getPkgMainPath();
+  log.verbose('pkgMainPath -->', pkgMainPath);
+
+  if (pkgMainPath) {// 更新包 并
+    // 执行入口文件
+  } else {
+    // 下载包 到缓存目录 再执行入口文件
+    pkg.install();
+  }
 }
 /** get package name & version */
 
 
-function getPkgInfo() {
+function getPkgNameAndVersion() {
   var command = arguments[arguments.length - 1];
   var cmdName = command.name();
   return {
-    pkgName: PKG_CONFIG_WITH_COMMAND[cmdName],
-    pkgVersion: 'latest'
+    packageName: PKG_CONFIG_WITH_COMMAND[cmdName],
+    packageVersion: 'latest'
   };
 }
 

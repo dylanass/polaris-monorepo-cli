@@ -4,14 +4,14 @@ var getNpmVersions = require('./getNpmVersions');
 
 var getSemverVersions = require('./getSemverVersions');
 /**
- * @description 获取最新版本号
- * @param {*} baseVersion
+ * @description 判断当前包是否是最新版本，不是，则返回最新版本
+ * @param {*} currentVersion
  * @param {*} pkgName
  * @param {*} registry
  */
 
 
-function getNpmSemverVersion(baseVersion, pkgName, registry) {
+function getNpmSemverVersion(currentVersion, pkgName, registry) {
   var versions, newVersion;
   return regeneratorRuntime.async(function getNpmSemverVersion$(_context) {
     while (1) {
@@ -22,7 +22,7 @@ function getNpmSemverVersion(baseVersion, pkgName, registry) {
 
         case 2:
           versions = _context.sent;
-          newVersion = getSemverVersions(baseVersion, versions);
+          newVersion = getSemverVersions(currentVersion, versions);
 
           if (!(newVersion && newVersion.length > 0)) {
             _context.next = 6;
