@@ -5,22 +5,38 @@ const Package = require('@polaris-monorepo-cli/package')
 const { PKG_CONFIG_WITH_COMMAND, CACHE_DIR } = require('./const')
 
 
-function exec () {
-  let targetPath = process.env.CLI_TARGET_PAtH
+async function exec () {
+  const targetPath = process.env.CLI_TARGET_PATH
   const cliHomePath = process.env.CLI_HOME_PATH; //  /Users/mac/.polaris-cli
-  const root = targetPath || path.resolve(cliHomePath, CACHE_DIR)
-  const pkg = new Package({
-    root,
-    ...getPkgNameAndVersion.apply(null, arguments)
-  })
-  const pkgMainPath = pkg.getPkgMainPath()
-  log.verbose('pkgMainPath -->', pkgMainPath)
-  if (pkgMainPath) {
-    // 更新包 并
-    // 执行入口文件
+  let pkg
+
+  if (targetPath) {
+    /** @TODO 自定义本地调试 /Users/mac/Desktop/polaris-monorepo-cli/packages/init */
+    pkg = new Package({
+      root: targetPath,
+      ...getPkgNameAndVersion.apply(null, arguments)
+    })
   } else {
-    // 下载包 到缓存目录 再执行入口文件
-    pkg.install()
+    const storeDir = path.resolve(path.resolve(cliHomePath, CACHE_DIR), 'node_modules')
+    pkg = new Package({
+      root: path.resolve(cliHomePath, CACHE_DIR),
+      storeDir,
+      ...getPkgNameAndVersion.apply(null, arguments)
+    })
+
+    if (await pkg.exists()) {
+      // 更新包
+    } else {
+      pkg.install()
+    }
+  }
+
+  const rootFile = pkg.getPkgMainPath()
+  log.verbose('rootFile -->', rootFile)
+  if (rootFile) {
+    // const code = `require('${rootFile}').call(null, ${JSON.stringify({})})`;
+    // console.log('code,', code);
+    // require('child_process').spawn('node', ['-e', code])
   }
 }
 

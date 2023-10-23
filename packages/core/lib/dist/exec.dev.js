@@ -17,22 +17,67 @@ var _require = require('./const'),
     CACHE_DIR = _require.CACHE_DIR;
 
 function exec() {
-  var targetPath = process.env.CLI_TARGET_PAtH;
-  var cliHomePath = process.env.CLI_HOME_PATH; //  /Users/mac/.polaris-cli
+  var targetPath,
+      cliHomePath,
+      pkg,
+      storeDir,
+      rootFile,
+      _args = arguments;
+  return regeneratorRuntime.async(function exec$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          targetPath = process.env.CLI_TARGET_PATH;
+          cliHomePath = process.env.CLI_HOME_PATH; //  /Users/mac/.polaris-cli
 
-  var root = targetPath || path.resolve(cliHomePath, CACHE_DIR);
-  var pkg = new Package(_objectSpread({
-    root: root
-  }, getPkgNameAndVersion.apply(null, arguments)));
-  var pkgMainPath = pkg.getPkgMainPath();
-  log.verbose('pkgMainPath -->', pkgMainPath);
+          if (!targetPath) {
+            _context.next = 6;
+            break;
+          }
 
-  if (pkgMainPath) {// 更新包 并
-    // 执行入口文件
-  } else {
-    // 下载包 到缓存目录 再执行入口文件
-    pkg.install();
-  }
+          /** @TODO 自定义本地调试 /Users/mac/Desktop/polaris-monorepo-cli/packages/init */
+          pkg = new Package(_objectSpread({
+            root: targetPath
+          }, getPkgNameAndVersion.apply(null, _args)));
+          _context.next = 14;
+          break;
+
+        case 6:
+          storeDir = path.resolve(path.resolve(cliHomePath, CACHE_DIR), 'node_modules');
+          pkg = new Package(_objectSpread({
+            root: path.resolve(cliHomePath, CACHE_DIR),
+            storeDir: storeDir
+          }, getPkgNameAndVersion.apply(null, _args)));
+          _context.next = 10;
+          return regeneratorRuntime.awrap(pkg.exists());
+
+        case 10:
+          if (!_context.sent) {
+            _context.next = 13;
+            break;
+          }
+
+          _context.next = 14;
+          break;
+
+        case 13:
+          pkg.install();
+
+        case 14:
+          rootFile = pkg.getPkgMainPath();
+          log.verbose('rootFile -->', rootFile);
+
+          if (rootFile) {// const code = `require('${rootFile}').call(null, ${JSON.stringify({})})`;
+            // console.log('code,', code);
+            // require('child_process').spawn('node', ['-e', code])
+          }
+
+        case 17:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
 }
 /** get package name & version */
 

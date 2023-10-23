@@ -43,37 +43,60 @@ function () {
     this.root = options.root;
     this.packageName = options.packageName;
     this.packageVersion = options.packageVersion;
-    this.storeDir = path.resolve(options.root, 'node_modules');
+    this.storeDir = options.storeDir;
     log.verbose('Package constructor options -->', options);
   }
 
   _createClass(Package, [{
-    key: "prepare",
-    value: function prepare() {
-      return regeneratorRuntime.async(function prepare$(_context) {
+    key: "exists",
+    // 判断当前path是否存在
+    value: function exists() {
+      return regeneratorRuntime.async(function exists$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
+            case 0:
+              if (!this.storeDir) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 3;
+              return regeneratorRuntime.awrap(this.prepare());
+
+            case 3:
+              return _context.abrupt("return", pathExists(this.cacheFilePath));
+
+            case 6:
+              return _context.abrupt("return", pathExists(this.targetPath));
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, this);
+    }
+  }, {
+    key: "prepare",
+    value: function prepare() {
+      return regeneratorRuntime.async(function prepare$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (this.storeDir && !pathExists(this.storeDir)) {
                 log.verbose('create storeDir -->', this.storeDir);
                 fse.mkdirpSync(this.storeDir);
               }
 
-              if (!(this.packageVersion === 'latest')) {
-                _context.next = 6;
-                break;
+              if (this.packageVersion === 'latest') {
+                // this.packageVersion = await getNpmLatestVersion(this.packageName);
+                this.packageVersion = '1.1.6';
+                log.verbose('latest init package version --> ', this.packageVersion);
               }
 
-              _context.next = 4;
-              return regeneratorRuntime.awrap(getNpmLatestVersion(this.packageName));
-
-            case 4:
-              this.packageVersion = _context.sent;
-              log.verbose('latest init package version --> ', this.packageVersion);
-
-            case 6:
+            case 2:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
       }, null, this);
@@ -83,14 +106,15 @@ function () {
   }, {
     key: "install",
     value: function install() {
-      return regeneratorRuntime.async(function install$(_context2) {
+      return regeneratorRuntime.async(function install$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              _context2.next = 2;
+              this.storeDir = path.resolve(options.root, 'node_modules');
+              _context3.next = 3;
               return regeneratorRuntime.awrap(this.prepare());
 
-            case 2:
+            case 3:
               npmInstall({
                 root: this.root,
                 storeDir: this.storeDir,
@@ -101,9 +125,9 @@ function () {
                 }]
               });
 
-            case 3:
+            case 4:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
       }, null, this);
@@ -114,20 +138,34 @@ function () {
     key: "getPkgMainPath",
     value: function getPkgMainPath() {
       /** 获取传入目录的根目录 */
-      var dir = pkgDir(this.root);
-      log.verbose('package dir -->', dir);
+      function _getPkgMainPath(targetPath) {
+        var dir = pkgDir(targetPath);
+        log.verbose('package dir -->', dir);
 
-      if (dir) {
-        var pkgFile = require(path.resolve(dir, 'package.json'));
+        if (dir) {
+          var pkgFile = require(path.resolve(dir, 'package.json'));
 
-        if (pkgFile && pkgFile.main) {
-          return formatPath(path.resolve(dir, pkgFile.main));
+          if (pkgFile && pkgFile.main) {
+            return formatPath(path.resolve(dir, pkgFile.main));
+          }
+
+          return null;
         }
 
         return null;
       }
 
-      return null;
+      if (this.storeDir) {
+        return _getPkgMainPath(this.cacheFilePath);
+      } else {
+        return _getPkgMainPath(this.root);
+      }
+    }
+  }, {
+    key: "cacheFilePath",
+    get: function get() {
+      // return path.resolve(this.storeDir, `_${this.cacheFilePathPrefix}@${this.packageVersion}@${this.packageName}`);
+      return path.resolve(this.storeDir, this.packageName);
     }
   }]);
 

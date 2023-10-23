@@ -23,7 +23,7 @@ function registerCommand () {
       log.verbose('polaris init projectName -->', projectName)
       log.verbose('polaris init options -->', options)
       log.verbose('polaris init command -->', command.name())
-      process.env.CLI_TARGET_PAtH = options.targetPath
+      process.env.CLI_TARGET_PATH = options.targetPath
       exec(projectName, options, command)
     })
 
