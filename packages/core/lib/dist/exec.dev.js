@@ -67,9 +67,9 @@ function exec() {
           rootFile = pkg.getPkgMainPath();
           log.verbose('rootFile -->', rootFile);
 
-          if (rootFile) {// const code = `require('${rootFile}').call(null, ${JSON.stringify({})})`;
-            // console.log('code,', code);
-            // require('child_process').spawn('node', ['-e', code])
+          if (rootFile) {
+            // 在当前进程调用，无法充分利用cpu资源
+            require(rootFile).apply(null, _args);
           }
 
         case 17:

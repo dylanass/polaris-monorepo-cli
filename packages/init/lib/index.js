@@ -1,7 +1,8 @@
 'use strict';
 
 function init () {
-  return 'Hello from init';
+  console.log('hello init ');
+
 }
 
 module.exports = init;
